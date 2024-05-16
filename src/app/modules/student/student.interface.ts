@@ -1,25 +1,32 @@
-import { Schema, model, connect } from 'mongoose';
+// import { Schema, model, connect } from 'mongoose';
 
-export type Guardian={
-    fatherName:string;
-    fatherOccupation:string;
-    fatherContactNo:string
-    motherName:string;
-    motherOccupation:string;
-    motherContactNo:string
-  }
+export type Guardian = {
+  fatherName: string;
+  fatherOccupation: string;
+  fatherContactNo: string;
+  motherName: string;
+  motherOccupation: string;
+  motherContactNo: string;
+};
 
+export type UserName = {
+  firstName: string;
+  middleName: string;
+  lastName: string;
+};
 
+export type LocalGurdian = {
+  name: string;
+  occupation: string;
+  contactNo: string;
+  address: string;
+};
 
 export type Student = {
   id: string;
-  name: {
-    firstName: string;
-    middleName: string;
-    lastName: string;
-  };
+  name: UserName;
   gender: 'male' | 'female';
-  deteOfBirth: string;
+  deteOfBirth?: string;
   email: string;
   contactNo: string;
   emergencyContactNo: string;
@@ -37,4 +44,7 @@ export type Student = {
   presentAddress: string;
   permanentAddress: string;
   guardian: Guardian;
+  localGurdian: LocalGurdian;
+  profileImg?: string;
+  isActive: 'active' | 'blocked';
 };
