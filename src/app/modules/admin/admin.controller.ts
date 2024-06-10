@@ -3,10 +3,8 @@ import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import { AdminServices } from './admin.service';
 
-
-
 const createAdmin = catchAsync(async (req, res) => {
-  const { admin:adminData } = req.body;
+  const { admin: adminData } = req.body;
   const result = await AdminServices.createAdminService(adminData);
 
   sendResponse(res, {

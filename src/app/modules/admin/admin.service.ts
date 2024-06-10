@@ -8,18 +8,14 @@ import { Admin } from './admin.model';
 import { adminsSearchableFields } from './admin.constant';
 import { TAdmin } from './admin.interface';
 
-
-const createAdminService = async (payload:TAdmin) => {
+const createAdminService = async (payload: TAdmin) => {
   // console.log(payload);
   const result = await Admin.create(payload);
   return result;
-}
+};
 
 const getAllAdminService = async (query: Record<string, unknown>) => {
-  const adminQuery = new QueryBuilder(
-    Admin.find(),
-    query,
-  )
+  const adminQuery = new QueryBuilder(Admin.find(), query)
     .search(adminsSearchableFields)
     .filter()
     .sort()
@@ -31,7 +27,7 @@ const getAllAdminService = async (query: Record<string, unknown>) => {
 };
 
 const getSingleAdminService = async (id: string) => {
-  const result = await Admin.findById(id );
+  const result = await Admin.findById(id);
 
   return result;
 };
@@ -50,17 +46,17 @@ const deleteSingleAdminService = async (id: string) => {
     if (!deletedAdmin) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Failed to deleted Admin');
     }
-//user _id from deletefaculty
-// const userId = deletedAdmin.user;
-//     const deletedUser = await User.findByIdAndUpdate(
-//       { userId },
-//       { isDeleted: true },
-//       { new: true, session },
-//     );
+    //user _id from deletefaculty
+    // const userId = deletedAdmin.user;
+    //     const deletedUser = await User.findByIdAndUpdate(
+    //       { userId },
+    //       { isDeleted: true },
+    //       { new: true, session },
+    //     );
 
-//     if (!deletedUser) {
-//       throw new AppError(httpStatus.BAD_REQUEST, 'Failed to deleted Admin');
-//     }
+    //     if (!deletedUser) {
+    //       throw new AppError(httpStatus.BAD_REQUEST, 'Failed to deleted Admin');
+    //     }
 
     await session.commitTransaction();
     await session.endSession();
