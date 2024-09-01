@@ -23,13 +23,7 @@ const userSchema = new Schema<TUser, UserModel>(
       required: [true, 'Password is required'],
       select: 0,
     },
-    needsPasswordChange: {
-      type: Boolean,
-      default: true,
-    },
-    passwordChangeAt: {
-      type: Date,
-    },
+
     phone: {
       type: String,
       required: [true, 'Phone is required'],
@@ -44,7 +38,6 @@ const userSchema = new Schema<TUser, UserModel>(
       type: String,
       required: [true, 'Address is required'],
     },
-    profileImg: { type: String, default: '' },
     isDeleted: {
       type: Boolean,
       required: [true, 'isDeleted is required'],
@@ -96,14 +89,6 @@ userSchema.statics.isPasswordMatched = async function (
   return await bcrypt.compare(plainTextPassword, hashedPassword);
 };
 
-userSchema.statics.isJwtIssuedBeforePasswordChanged = async function (
-  passwordChangedTimeStamp: Date,
-  jwtIssuedTimestamp: number,
-) {
-  const passwordChangedTime =
-    new Date(passwordChangedTimeStamp).getTime() / 1000;
-  return passwordChangedTime > jwtIssuedTimestamp;
-};
 
 
 export const User = model<TUser, UserModel>('User', userSchema);

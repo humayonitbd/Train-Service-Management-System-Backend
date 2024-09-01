@@ -1,6 +1,6 @@
 // import { Response } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { Types } from 'mongoose';
+// import { Types } from 'mongoose';
 
 export const createToken = (
   jwtPayload: { email: string; role: string; userId: string },

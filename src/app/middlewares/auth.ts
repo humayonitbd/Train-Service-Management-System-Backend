@@ -2,10 +2,11 @@ import httpStatus from "http-status";
 import { AppError } from "../error/AppError";
 import catchAsync from "../utils/catchAsync";
 import { NextFunction, Request, Response } from 'express';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import { JwtPayload } from 'jsonwebtoken';
 import config from "../config";
 import { TUserRole } from "../modules/user/user.interface";
 import { User } from "../modules/user/user.model";
+import { verifyToken } from "../modules/auth/auth.utils";
 
 
 
@@ -19,8 +20,17 @@ const authValidation = (...requiredRoles:TUserRole[]) => {
       }
 
       // check if the token is valid
-      const decoded =  jwt.verify(token, config.jwt_access_secret as string) as JwtPayload;
+      // const decoded =  jwt.verify(token, config.jwt_access_secret as string) as JwtPayload;
           //   const {userId,role} = decoded;
+          let decoded;
+          try {
+            decoded = verifyToken(token, config.jwt_access_secret as string);
+          } catch (error) {
+            throw new AppError(
+              httpStatus.UNAUTHORIZED,
+              'You are Unauthorized!!',
+            );
+          }
           const {role, userId, email, iat} = decoded;
 
           const user = await User.isUserExistsByid(userId);
@@ -43,19 +53,6 @@ const authValidation = (...requiredRoles:TUserRole[]) => {
           // //checking if the user is already deleted
           if (await User.isUserDeleted(userId)) {
             throw new AppError(httpStatus.FORBIDDEN, 'This user is deleted !!');
-          }
-
-          if (
-            user?.passwordChangeAt &&
-            (await User.isJwtIssuedBeforePasswordChanged(
-              user.passwordChangeAt,
-              iat as number,
-            ))
-          ) {
-            throw new AppError(
-              httpStatus.UNAUTHORIZED,
-              'You are not authorized!!!!!',
-            );
           }
 
             if (requiredRoles && !requiredRoles.includes(role)) {
