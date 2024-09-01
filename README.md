@@ -43,26 +43,26 @@ npm start:dev
 ### Access the API: http://localhost:5000
 ### API Endpoints
 ### User Management
-1.POST /api/v1/signup: Register a new user.
-2.POST /api/v1/login: User login and token generation.
+1. POST /api/v1/signup: Register a new user.
+2. POST /api/v1/login: User login and token generation.
 
 ### Station Management
-1.POST /api/v1/station/create-station: Create a new station.
-2.GET /api/v1/station: Retrieve all stations.
-3.PUT /api/v1/stations/:id: Update station details.
+1. POST /api/v1/station/create-station: Create a new station.
+2. GET /api/v1/station: Retrieve all stations.
+3. PUT /api/v1/stations/:id: Update station details.
 
 ### Train Management
-1.POST /api/v1/train/create-train: Create a new train schedule.
-2.GET /api/v1/train: Retrieve all train schedules.
-3.PUT /api/v1/train/:id: Update train schedule.
+1. POST /api/v1/train/create-train: Create a new train schedule.
+2. GET /api/v1/train: Retrieve all train schedules.
+3. PUT /api/v1/train/:id: Update train schedule.
 
 ### Wallet Integration
-1.POST /api/v1/wallet/add-wallet: Add funds to a user's wallet.
-2.GET /api/v1/wallet: Retrieve wallet balance.
+1. POST /api/v1/wallet/add-wallet: Add funds to a user's wallet.
+2. GET /api/v1/wallet: Retrieve wallet balance.
 
 ### Ticketing System
-1.POST /api/v1/ticket: Purchase a ticket using wallet balance.
-2.GET /api/v1/ticket: Retrieve wallet balance.
+1. POST /api/v1/ticket: Purchase a ticket using wallet balance.
+2. GET /api/v1/ticket: Retrieve wallet balance.
 
 
 
